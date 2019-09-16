@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  registry:
+    container_name: builder_registry
+    image: registry:2
+#    environment: ["REGISTRY_AUTH=htpasswd", "REGISTRY_AUTH_HTPASSWD_REALM=cmd.cat", "REGISTRY_AUTH_HTPASSWD_PATH=/htpasswd"]
+#    volumes: ["./htpasswd.registry:/htpasswd:ro"]
+  docker:
+    container_name: builder_docker
+    image: docker:stable-dind
+    privileged: true
+    environment:
+      DOCKER_TLS_CERTDIR:
+    command: ["--insecure-registry=registry:5000"]
+  builder:
+    container_name: builder
+    build: .
+    volumes:
+      - ./builder/shell.sh:/shell.sh:ro
+      - ./builder/:/builder:ro
+    ports: ["5050:5050"]
+    depends_on: ["docker", "registry"]
+    environment:
+      DOCKER_HOST: tcp://docker:2375
+      BUILDER_REGISTRY_USERNAME:
+      BUILDER_REGISTRY_PASSWORD:
