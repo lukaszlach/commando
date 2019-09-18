@@ -16,9 +16,6 @@ services:
   builder:
     container_name: builder
     build: .
-    volumes:
-      - ./builder/shell.sh:/shell.sh:ro
-      - ./builder/:/builder:ro
     ports: ["5050:5050"]
     depends_on: ["docker", "registry"]
     environment:

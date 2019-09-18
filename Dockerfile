@@ -20,4 +20,4 @@ CMD ["builder"]
 RUN apk --no-cache add curl bash
 COPY --from=builder /builder/builder /usr/local/bin/
 COPY --from=docker /usr/local/bin/docker /usr/local/bin/
-COPY ./builder/* /builder/
+COPY ./builder /builder
