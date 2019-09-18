@@ -29,7 +29,7 @@ func handler(p *httputil.ReverseProxy) func(http.ResponseWriter, *http.Request) 
 				log.Println(r.URL)
 				if r.Method == http.MethodGet && manifestExpr.MatchString(r.URL.String()) {
 					log.Println("Executing shell command")
-					cmd := exec.Command("bash", "/shell.sh", r.URL.String());
+					cmd := exec.Command("bash", "/builder/shell.sh", r.URL.String());
 					out, err := cmd.CombinedOutput()
 					if err != nil {
 						log.Println("Error executing shell command")
