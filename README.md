@@ -1,6 +1,6 @@
 # Commando
 
-![Version](https://img.shields.io/badge/version-0.1.0-lightgrey.svg?style=flat)
+![Version](https://img.shields.io/badge/version-0.2.0-lightgrey.svg?style=flat)
 
 **Commando** generates Docker images on-demand with all the commands you need and simply point them by name in the `docker run` command. **Commando** is SysOps and DevOps best friend.
 
