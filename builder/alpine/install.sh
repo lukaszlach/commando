@@ -3,7 +3,12 @@ COMMANDS=$1
 PACKAGES=
 # @todo why can I not make the IFS work here?!
 while read COMMAND; do
-    PACKAGE=$(curl -sSfL "https://command-not-found.com/-/api/package/alpine/$COMMAND")
+    if [ "$COMMAND" = "@*" ]; then
+      PACKAGE=${COMMAND:1}
+    else
+      PACKAGE=$(curl -sSfL "https://command-not-found.com/-/api/package/alpine/$COMMAND")
+    fi
+    
     if apk info | grep -qE "^${PACKAGE}$" >/dev/null; then
         echo "Notice: Package already installed"
         exit 0
